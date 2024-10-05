@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+
+        .error {
+        color: red;
+        font-size: 14px;
+        }
+
+        label {
+            float: left;
+            width: 150px;
+        }
+
+        #container {
+            width: 700px;
+            margin: auto;
+            background-color: beige;
+        }
+
+        main {
+            padding: 50px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .checkbox-label {
+            display: inline-block;
+            width: auto;
+            margin-left: 80px;
+
+        }
+
+        .checkbox-container {
+            display: none;
+            margin-left: 70px;
+        }
+
+        .additional-feedback {
+            display: none;
+        }
+    
+    
+    table {
+        width: 100%; /* Set a maximum width for the table */
+        border-collapse: collapse;
+        margin-top: 20px;
+        overflow-x: auto;
+        table-layout: absolute;
+        margin: 0;
+        margin-left: 0;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+</style>
+</head>
+<body>
+<div id="container">
+    <main>
+        <h2>Feedback</h2>
+        <h3>Love something? Hate something? Let us know!</h3>
+        Note: Fields marked with an asterisk(*) are mandatory
+        <br><br>
+        <form method="post" id="feedbackForm">
+            <label>Title*:</label>
+            <input type="radio" name="title" id="miss" value="Miss" required="required"/>Miss
+            <input type="radio" name="title" id="mr" value="Mr" required="required"/>Mr.
+            <input type="radio" name="title" id="mrs" value="Mrs" required="required"/>Mrs.
+            <br><br>
+            <label for="firstName">First Name*:</label>
+            <input type="text" name="firstName" id="firstName" placeholder="First Name" required/>
+            <span class="error" id="firstNameError"></span>
+            <br><br>
+
+            <label for="lastName">Last Name*:</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required/>
+            <span class="error" id="lastNameError"></span>
+            <br><br>
+
+            <label for="emailId">Email Id*:</label>
+            <input type="text" name="emailId" id="emailId" placeholder="yourname@domain.com" required/>
+            <span class="error" id="emailIdError"></span>
+            <br><br>
+
+            <label for="phoneNumber">Phone Number*:</label>
+            <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="xxx-xxx-xxxx" title="Please enter a 10-digit phone number" required/>
+            <span class="error" id="phoneNumberError"></span>
+            <br><br>
+
+            <label for="streetAddress1">Street Address 1*:</label>
+            <input type="text" name="streetAddress1" id="streetAddress1" placeholder="Street Address 1" required/>
+            <span class="error" id="streetAddress1Error"></span>
+            <br><br>
+
+            <label for="streetAddress2">Street Address 2:</label>
+            <input type="text" name="streetAddress2" id="streetAddress2" placeholder="Street Address 2"/>
+            <br><br>
+
+            <label for="city">City*:</label>
+            <input type="text" name="city" id="city" placeholder="City" required/>
+            <span class="error" id="cityError"></span>
+            <br><br>
+
+            <label for="state">State*:</label>
+            <input type="text" name="state" id="state" placeholder="State" required/>
+            <span class="error" id="stateError"></span>
+            <br><br>
+
+            <label for="country">Country*:</label>
+            <input type="text" name="country" id="country" placeholder="Country" required/>
+            <span class="error" id="countryError"></span>
+            <br><br>
+
+            <label for="zipcode">ZipCode*:</label>
+            <input type="number" name="zipcode" id="zipcode" placeholder="xxxxx" title="Please enter a 5-digit zip code" required/>
+            <span class="error" id="zipcodeError"></span>
+            <br><br>
+
+            <label for="source">How did you hear*:</label>
+            <input type='checkbox' name="source" value="facebook" id="facebook" checked/> Facebook
+            <input type='checkbox' name="source" value="google" id="google"/> Google
+            <input type='checkbox' name="source" value="yelp" id="yelp"/> Yelp
+            <span class="error" id="sourceError"></span>
+            <br><br>
+            <label for="liked">Drinks*</label>
+            <select name="liked" id="liked">
+                <option value="">Select your favourite</option>
+                <option value="Cappuccino">Cappuccino</option>
+                <option value="Macchiato">Macchiato</option>
+                <option value="Mocha">Mocha</option>
+                <option value="Americano">Americano</option>
+                <option value="Ristretto">Ristretto</option>
+            </select>
+            <br>
+            <div id="checkboxContainer" class="checkbox-container"></div>
+            <br> 
+            <label class="additional-feedback" for="additionalFeedback">Any Additional Customiziations *:</label>
+            <textarea class="additional-feedback" name="additionalFeedback" id="additionalFeedback" placeholder="Additional feedback" rows="5" cols="25"></textarea>
+            <span id="feedbackError" class="error"></span>
+            <br>
+            <label for="comments">Comments*:</label>
+            <textarea name="text" id="comments" placeholder="Your comments" rows="5" cols="25" minlength="10" required></textarea>
+            <span class="error" id="commentsError"></span>
+            <br><br>
+            <input type="submit" value="Submit" id="submitButton" disabled>
+            <input type="reset">
+            <br><br>
+        </form>
+       
+        
+    </main>
+    <br><br>
+    
+</div>
+<div id="tableContainer" style="display: none;">
+    <table id="feedbackTable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Street Address 1</th>
+                <th>Street Address 2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>ZipCode</th>
+                <th>Source</th>
+                <th>Liked</th>
+                <th>Additional Feedback</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be inserted here -->
+        </tbody>
+    </table>
+</div>
+<script>
+    // Function to validate the First Name field
+    function validateFirstName() {
+        var firstName = document.getElementById('firstName').value.trim();
+        var firstNameError = document.getElementById('firstNameError');
+
+        if (firstName === '') {
+            firstNameError.textContent = 'Please enter your first name.';
+        } else {
+            firstNameError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate the Last Name field
+    function validateLastName() {
+        var lastName = document.getElementById('lastName').value.trim();
+        var lastNameError = document.getElementById('lastNameError');
+
+        if (lastName === '') {
+            lastNameError.textContent = 'Please enter your last name.';
+        } else {
+            lastNameError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate the Email field
+    function validateEmail() {
+        var email = document.getElementById('emailId').value.trim();
+        var emailError = document.getElementById('emailIdError');
+
+        if (email === '') {
+            emailError.textContent = 'Please enter an email address.';
+        } else if (!validateEmailFormat(email)) {
+            emailError.textContent = 'Please enter a valid email address.';
+        } else if (!email.endsWith('@northeastern.edu')) {
+            emailError.textContent = 'Email must belong to @northeastern.edu domain.';
+        } else {
+            emailError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate the Phone Number field
+    function validatePhoneNumber() {
+        var phoneNumber = document.getElementById('phoneNumber').value.trim();
+        var phoneNumberError = document.getElementById('phoneNumberError');
+
+        if (phoneNumber === '' || !validatePhoneNumberFormat(phoneNumber)) {
+            phoneNumberError.textContent = 'Please enter a valid 10-digit phone number.';
+        } else {
+            phoneNumberError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate the ZipCode field
+    function validateZipCode() {
+        var zipcode = document.getElementById('zipcode').value.trim();
+        var zipcodeError = document.getElementById('zipcodeError');
+
+        if (zipcode === '' || !validateZipCodeFormat(zipcode)) {
+            zipcodeError.textContent = 'Please enter a valid 5-digit zip code.';
+        } else {
+            zipcodeError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate Street Address 1 field
+    function validateStreetAddress1() {
+        var streetAddress1 = document.getElementById('streetAddress1').value.trim();
+        var streetAddress1Error = document.getElementById('streetAddress1Error');
+
+        if (streetAddress1 === '') {
+            streetAddress1Error.textContent = 'Please enter Street Address 1.';
+        } else {
+            streetAddress1Error.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate Street Address 2 field (optional)
+    function validateStreetAddress2() {
+        var streetAddress2 = document.getElementById('streetAddress2').value.trim();
+        // No validation needed for Street Address 2
+    }
+
+    // Function to validate the City field
+    function validateCity() {
+        var city = document.getElementById('city').value.trim();
+        var cityError = document.getElementById('cityError');
+
+        if (city === '') {
+            cityError.textContent = 'Please enter your city.';
+        } else {
+            cityError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate the State field
+    function validateState() {
+        var state = document.getElementById('state').value.trim();
+        var stateError = document.getElementById('stateError');
+
+        if (state === '') {
+            stateError.textContent = 'Please enter your state.';
+        } else {
+            stateError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate the Country field
+    function validateCountry() {
+        var country = document.getElementById('country').value.trim();
+        var countryError = document.getElementById('countryError');
+
+        if (country === '') {
+            countryError.textContent = 'Please enter your country.';
+        } else {
+            countryError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate checkboxes
+    function validateCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[name="source"]');
+        var checkboxesError = document.getElementById('sourceError');
+        var isChecked = false;
+
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                isChecked = true;
+            }
+        });
+
+        if (!isChecked) {
+            checkboxesError.textContent = 'Please select at least one source.';
+        } else {
+            checkboxesError.textContent = '';
+        }
+        validateForm();
+    }
+
+// Function to comment customization
+
+
+function validateAdditionalFeedback() {
+    var additionalFeedback = document.getElementById('additionalFeedback').value.trim();
+    var feedbackError = document.getElementById('feedbackError');
+
+    // Show error if the field is empty
+    if (additionalFeedback === '') {
+        feedbackError.textContent = 'Text required.';
+    } else {
+        feedbackError.textContent = ''; // Clear error if text is entered
+    }
+}
+
+// Run validation on page load immediately
+window.addEventListener('DOMContentLoaded', function() {
+    validateAdditionalFeedback(); // Check if the field is empty on load
+});
+
+// Validate in real-time while the user is typing
+var additionalFeedbackField = document.getElementById('additionalFeedback');
+additionalFeedbackField.addEventListener('input', validateAdditionalFeedback);
+        
+
+
+
+
+// Function to comment customization end
+
+    // Function to validate the Comments field
+    function validateComments() {
+        var comments = document.getElementById('comments').value.trim();
+        var commentsError = document.getElementById('commentsError');
+
+        if (comments === '' || !validateAlphanumeric(comments) || comments.length < 10) {
+            commentsError.textContent = 'Please enter valid alphanumeric comments with at least 10 characters.';
+        } else {
+            commentsError.textContent = '';
+        }
+        validateForm();
+    }
+
+    // Function to validate the entire form and enable/disable the Submit button
+    function validateForm() {
+        var submitButton = document.getElementById('submitButton');
+        var isValid = true;
+
+        var errorElements = document.querySelectorAll('.error');
+        errorElements.forEach(function(element) {
+            if (element.textContent !== '') {
+                isValid = false;
+            }
+        });
+
+        // Additional validation for Street Address 1, Street Address 2 (optional), City, State, and Country
+        var streetAddress1 = document.getElementById('streetAddress1').value.trim();
+        var city = document.getElementById('city').value.trim();
+        var state = document.getElementById('state').value.trim();
+        var country = document.getElementById('country').value.trim();
+
+        if (streetAddress1 === '' || city === '' || state === '' || country === '') {
+            isValid = false;
+        }
+
+        submitButton.disabled = !isValid;
+    }
+
+    // Function to validate email format
+    function validateEmailFormat(email) {
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(email);
+    }
+
+    // Function to validate phone number format (only digits)
+    function validatePhoneNumberFormat(phoneNumber) {
+        var phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+        return phonePattern.test(phoneNumber);
+    }
+
+    // Function to validate zip code format (only digits)
+    function validateZipCodeFormat(zipcode) {
+        var zipCodePattern = /^\d{5}$/;
+        return zipCodePattern.test(zipcode);
+    }
+
+    // Function to validate comments for alphanumeric characters
+    function validateAlphanumeric(input) {
+        var alphanumericPattern = /^[a-zA-Z0-9\s]*$/;
+        return alphanumericPattern.test(input);
+    }
+
+    // Function to dynamically generate checkboxes based on the selected option
+    function updateCheckboxOptions() {
+        var likedDropdown = document.getElementById('liked');
+        var checkboxContainer = document.getElementById('checkboxContainer');
+
+        // Clear existing checkboxes
+        checkboxContainer.innerHTML = '';
+
+        // Get the selected option value
+        var selectedOption = likedDropdown.value;
+
+        if (selectedOption !== '') {
+            // Show the checkbox container
+            checkboxContainer.style.display = 'block';
+
+            // Create and add checkboxes based on the selected option
+            if (selectedOption === 'Cappuccino') {
+                var ambienceSentence = document.createElement('p');
+                ambienceSentence.textContent = 'Hey! which size would you like to have? !';
+                checkboxContainer.appendChild(ambienceSentence);
+                // Add checkboxes for ambience
+                createCheckbox('checkbox1', 'Cappuccino Large (1$ Extra)');
+            } else if (selectedOption === 'Macchiato') {
+                var serviceSentence = document.createElement('p');
+                serviceSentence.textContent = 'Hey! which size would you like to have? !';
+                checkboxContainer.appendChild(serviceSentence);
+                // Add checkboxes for service
+                createCheckbox('checkbox4', 'Macchiato Large (1$ Extra)');
+            } else if (selectedOption === 'Mocha') {
+                var sandwichesSentence = document.createElement('p');
+                sandwichesSentence.textContent = 'Hey! which size would you like to have? !';
+                checkboxContainer.appendChild(sandwichesSentence);
+                // Add checkboxes for sandwiches
+                createCheckbox('checkbox7', 'Mocha Large (1$ Extra)');
+            } else if (selectedOption === 'Americano') {
+                var affordabilitySentence = document.createElement('p');
+                affordabilitySentence.textContent = 'Hey! which size would you like to have? !';
+                checkboxContainer.appendChild(affordabilitySentence);
+                // Add checkboxes for affordability
+                createCheckbox('checkbox10', 'Americano Large (1$ Extra)');
+            } else if (selectedOption === 'Ristretto') {
+                var affordabilitySentence = document.createElement('p');
+                affordabilitySentence.textContent = 'Hey! which size would you like to have? !';
+                checkboxContainer.appendChild(affordabilitySentence);
+                // Add checkboxes for Drinks
+                createCheckbox('checkbox13', 'Ristretto Large (1$ Extra)');
+            }
+            // Add more cases for other options as needed
+        } else {
+            // Hide the checkbox container if no option is selected
+            checkboxContainer.style.display = 'none';
+        }
+
+        // Call the validateForm function to update the Submit button's state
+        validateForm();
+    }
+//testing
+function updateCheckboxOptions() {
+    var likedDropdown = document.getElementById('liked');
+    var checkboxContainer = document.getElementById('checkboxContainer');
+
+    // Clear existing checkboxes
+    checkboxContainer.innerHTML = '';
+
+    // Get the selected option value
+    var selectedOption = likedDropdown.value;
+
+    // Hide the additional feedback label and textarea by default
+    var additionalFeedbackLabel = document.querySelector('.additional-feedback');
+    var additionalFeedback = document.getElementById('additionalFeedback');
+    additionalFeedbackLabel.style.display = 'none';
+    additionalFeedback.style.display = 'none';
+    additionalFeedback.required = false; // Make it not required
+    additionalFeedback.value = ''; // Clear any existing input
+
+    if (selectedOption !== '') {
+        // Show the checkbox container
+        checkboxContainer.style.display = 'block';
+
+        // Create and add checkboxes based on the selected option
+        if (selectedOption === 'Cappuccino') {
+            var ambienceSentence = document.createElement('p');
+            ambienceSentence.textContent = 'Hey! which size would you like to have? !';
+            checkboxContainer.appendChild(ambienceSentence);
+            // Add checkboxes for ambience
+            createCheckbox('checkbox1', 'Cappuccino Large (1$ Extra)');
+        } else if (selectedOption === 'Macchiato') {
+            var serviceSentence = document.createElement('p');
+            serviceSentence.textContent = 'Hey! which size would you like to have? !';
+            checkboxContainer.appendChild(serviceSentence);
+            // Add checkboxes for service
+            createCheckbox('checkbox4', 'Macchiato Large (1$ Extra)');
+        } else if (selectedOption === 'Mocha') {
+            var sandwichesSentence = document.createElement('p');
+            sandwichesSentence.textContent = 'Hey! which size would you like to have? !';
+            checkboxContainer.appendChild(sandwichesSentence);
+            // Add checkboxes for sandwiches
+            createCheckbox('checkbox7', 'Mocha Large (1$ Extra)');
+        } else if (selectedOption === 'Americano') {
+            var affordabilitySentence = document.createElement('p');
+            affordabilitySentence.textContent = 'Hey! which size would you like to have? !';
+            checkboxContainer.appendChild(affordabilitySentence);
+            // Add checkboxes for affordability
+            createCheckbox('checkbox10', 'Americano Large (1$ Extra)');
+        } else if (selectedOption === 'Ristretto') {
+            var affordabilitySentence = document.createElement('p');
+            affordabilitySentence.textContent = 'Hey! which size would you like to have? !';
+            checkboxContainer.appendChild(affordabilitySentence);
+            // Add checkboxes for Drinks
+            createCheckbox('checkbox13', 'Ristretto Large (1$ Extra)');
+        }
+        // Add more cases for other options as needed
+    } else {
+        // Hide the checkbox container if no option is selected
+        checkboxContainer.style.display = 'none';
+    }
+
+    // Call the validateForm function to update the Submit button's state
+    validateForm();
+}
+       
+//testing
+
+
+    // Function to create a checkbox
+    function createCheckbox(id, label) {
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = id;
+        checkbox.name = 'dynamicCheckbox';
+
+        var checkboxLabel = document.createElement('label');
+        checkboxLabel.setAttribute('for', id);
+        checkboxLabel.className = 'checkbox-label'; // Apply the style class
+        checkboxLabel.appendChild(document.createTextNode(label));
+
+        var br = document.createElement('br');
+
+        var checkboxContainer = document.getElementById('checkboxContainer');
+        checkboxContainer.appendChild(checkbox);
+        checkboxContainer.appendChild(checkboxLabel);
+        checkboxContainer.appendChild(br);
+
+        // Attach the event listener to the dynamically generated checkbox
+        checkbox.addEventListener('change', handleCheckboxClick);
+    }
+
+    // Function to handle the checkbox click event
+    function handleCheckboxClick() {
+        updateAdditionalFeedbackVisibility();
+    }
+
+    // Function to update the visibility of additional feedback textarea
+    function updateAdditionalFeedbackVisibility() {
+        var checkboxes = document.querySelectorAll('input[name="dynamicCheckbox"]');
+        var additionalFeedbackLabel = document.querySelector('.additional-feedback');
+        var additionalFeedback = document.getElementById('additionalFeedback');
+        var isAtLeastOneChecked = false;
+
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                isAtLeastOneChecked = true;
+            }
+        });
+
+        if (isAtLeastOneChecked) {
+            additionalFeedbackLabel.style.display = 'block';
+            additionalFeedback.style.display = 'block';
+            additionalFeedback.required = true; // Make it required
+        } else {
+            additionalFeedbackLabel.style.display = 'none';
+            additionalFeedback.style.display = 'none';
+            additionalFeedback.required = false; // Make it not required
+            additionalFeedback.value = ''; // Clear any existing input
+        }
+
+        validateForm();
+    }
+
+    // Add an event listener to the 'liked' dropdown to update checkboxes on change
+    var likedDropdown = document.getElementById('liked');
+    likedDropdown.addEventListener('change', updateCheckboxOptions);
+
+    // Add event listeners for individual field validation on key events
+    var firstNameInput = document.getElementById('firstName');
+    var lastNameInput = document.getElementById('lastName');
+    var emailInput = document.getElementById('emailId');
+    var phoneNumberInput = document.getElementById('phoneNumber');
+    var zipcodeInput = document.getElementById('zipcode');
+    var commentsInput = document.getElementById('comments');
+    var checkboxes = document.querySelectorAll('input[name="source"]');
+    var streetAddress1Input = document.getElementById('streetAddress1');
+    var streetAddress2Input = document.getElementById('streetAddress2');
+    var cityInput = document.getElementById('city');
+    var stateInput = document.getElementById('state');
+    var countryInput = document.getElementById('country');
+    var cityInput = document.getElementById('city');
+    var stateInput = document.getElementById('state');
+    var countryInput = document.getElementById('country');
+
+
+    streetAddress1Input.addEventListener('input', validateStreetAddress1);
+
+    firstNameInput.addEventListener('input', validateFirstName);
+    lastNameInput.addEventListener('input', validateLastName);
+    emailInput.addEventListener('input', validateEmail);
+    phoneNumberInput.addEventListener('input', validatePhoneNumber);
+    zipcodeInput.addEventListener('input', validateZipCode);
+    commentsInput.addEventListener('input', validateComments);
+    cityInput.addEventListener('input', validateCity);
+    stateInput.addEventListener('input', validateState);
+    countryInput.addEventListener('input', validateCountry);
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', validateCheckboxes);
+    });
+
+    // Initialize form validation
+    validateForm();
+    // Initialize checkbox options based on the initial dropdown selection
+    updateCheckboxOptions();
+
+    document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+        // Get form data
+        var title = document.querySelector('input[name="title"]:checked').value;
+        var firstName = document.getElementById('firstName').value.trim();
+        var lastName = document.getElementById('lastName').value.trim();
+        var email = document.getElementById('emailId').value.trim();
+        var phoneNumber = document.getElementById('phoneNumber').value.trim();
+        var zipcode = document.getElementById('zipcode').value.trim();
+        var source = [];
+        var checkboxes = document.querySelectorAll('input[name="source"]:checked');
+        checkboxes.forEach(function (checkbox) {
+            source.push(checkbox.value);
+        });
+        var liked = document.getElementById('liked').value;
+        var additionalFeedback = document.getElementById('additionalFeedback').value.trim();
+        var comments = document.getElementById('comments').value.trim();
+        var streetAddress1 = document.getElementById('streetAddress1').value.trim();
+        var streetAddress2 = document.getElementById('streetAddress2').value.trim();
+        var city = document.getElementById('city').value.trim();
+        var state = document.getElementById('state').value.trim();
+        var country = document.getElementById('country').value.trim();
+
+        var table = document.getElementById('feedbackTable');
+    var row = table.insertRow(-1);
+
+    var titleCell = row.insertCell(0);
+    var firstNameCell = row.insertCell(1);
+    var lastNameCell = row.insertCell(2);
+    var emailCell = row.insertCell(3);
+    var phoneNumberCell = row.insertCell(4);
+    var streetAddress1Cell = row.insertCell(5);
+    var streetAddress2Cell = row.insertCell(6);
+    var cityCell = row.insertCell(7);
+    var stateCell = row.insertCell(8);
+    var countryCell = row.insertCell(9);
+    var zipcodeCell = row.insertCell(10);
+    var sourceCell = row.insertCell(11);
+    var likedCell = row.insertCell(12);
+    var additionalFeedbackCell = row.insertCell(13);
+    var commentsCell = row.insertCell(14);
+
+    titleCell.innerHTML = title;
+    firstNameCell.innerHTML = firstName;
+    lastNameCell.innerHTML = lastName;
+    emailCell.innerHTML = email;
+    phoneNumberCell.innerHTML = phoneNumber;
+    streetAddress1Cell.innerHTML = streetAddress1;
+    streetAddress2Cell.innerHTML = streetAddress2;
+    cityCell.innerHTML = city;
+    stateCell.innerHTML = state;
+    countryCell.innerHTML = country;
+    zipcodeCell.innerHTML = zipcode;
+    sourceCell.innerHTML = source.join(', '); // Join multiple sources with a comma
+    likedCell.innerHTML = liked;
+    additionalFeedbackCell.innerHTML = additionalFeedback; // Display Additional Feedback
+    commentsCell.innerHTML = comments;
+
+    // Clear the form
+    document.getElementById('feedbackForm').reset();
+
+    // Clear the dynamically generated checkboxes
+    var checkboxContainer = document.getElementById('checkboxContainer');
+    checkboxContainer.innerHTML = '';
+
+    // Hide the additional feedback textarea
+    document.querySelector('.additional-feedback').style.display = 'none';
+    document.getElementById('additionalFeedback').style.display = 'none';
+
+    // Reset the Submit button state
+    validateForm();
+    document.getElementById('tableContainer').style.display = 'block';
+
+});
+
+</script>
+</body>
+</html>
